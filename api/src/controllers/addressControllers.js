@@ -2,9 +2,9 @@ const models = require('../models');
 
 const getAllAddresses = async (req, res) => {
   try {
-    const Addresss = await models.Addresss.find({});
+    const Addresses = await models.Addresses.find({});
 
-    return res.status(200).json(Addresss);
+    return res.status(200).json(Addresses);
   } catch (error) {
     return res.status(500).json({
       msg: 'An error has occurred.',
