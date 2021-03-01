@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const addressSchema = mongoose.Schema(
   {
     cep: {
-      type: Number,
+      type: String,
       required: true
     },
     logradouro: {
@@ -45,4 +45,4 @@ const addressSchema = mongoose.Schema(
   }, { timestamp: true }
 );
 
-module.exports = mongoose.model('address', addressSchema);
+module.exports = mongoose.model('Address', addressSchema);

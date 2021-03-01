@@ -1,56 +1,33 @@
 const models = require('../models');
-
-const getAllAddresses = async (req, res) => {
-  try {
-    const Addresses = await models.Addresses.find({});
-
-    return res.status(200).json(Addresses);
-  } catch (error) {
-    return res.status(500).json({
-      msg: 'An error has occurred.',
-    });
-  }
-};
+const { fetchAddress } = require('../utils/api');
 
 const getAddressByCep = async (req, res) => {
+  const {cep} = req.params;
   try {
-    const Address = await models.Addresss.findOne({ cep: req.body.cep });
+    let address = await models.Address.findOne({ cep });
 
-    if (!Address) {
-      return res.status(400).json({
-        msg: 'The Address has not been found.',
-      });
+    if (!address) {
+      const newAddress = await fetchAddress(cep);
+      address = await saveAddress(newAddress);
     }
-    return res.status(200).json(Address);
+
+    return res.status(200).json(address);
   } catch (error) {
     return res.status(500).json({
-      msg: 'An error has occurred.',
+      error: "Error searching for cep " + err,
     });
   }
 };
 
-const createAddress = async (req, res) => {
-  const addressFound = await address.findOne({ cep: req.body.cep });
-  if (addressFound)
-    return res.status(303).json({ message: "the cep already exists" });
 
-  const newAddress = new address(req.body);
-  const savedAddress = await newAddress.save();
-  res.json(savedAddress);
-};
+const saveAddress = async (newAddress) => {
+  newAddress.cep = newAddress.cep.replace('-', '');
+  const addressToSave = new models.Address(newAddress);
 
-const deleteAddress = async (req, res) => {
-  const addressFound = await address.findByIdAndDelete(req.params.id);
-
-  if (!addressFound) return res.status(204).json();
-
-  return res.status(204).json();
-};
+  return await addressToSave.save();
+}
 
 
 module.exports = {
-  getAllAddresses,
-  createAddress,
   getAddressByCep,
-  deleteAddress
 };
