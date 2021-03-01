@@ -1,0 +1,46 @@
+h1 {
+  color: green;
+  font-style: italic;
+}
+
+p {
+  text-transform: capitalize;
+  font-style: italic;
+  color: green;
+  font-size: 15px;
+}
+
+input {
+  border: 1px solid black;
+  border-radius: 15px;
+  margin-top: 3px;
+}
+
+.bigWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  width: 800px;
+  height: auto;
+  background-color: black;
+  text-align: center;
+}
+
+.cep {
+  color: grey;
+  padding-top: 3px;
+  font-size: 15px;
+}
+
+.inputWrapper {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
